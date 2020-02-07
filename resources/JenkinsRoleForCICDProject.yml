@@ -1,0 +1,27 @@
+apiVersion: authorization.openshift.io/v1
+kind: Role
+metadata:
+  labels:
+    application: jenkins
+  name: jenkins-remove-role
+rules:
+  - apiGroups:
+      - '*'
+    attributeRestrictions: null
+    resources:
+      - cdpipelines
+      - codebasebranches
+      - codebases
+      - stages
+    verbs:
+      - delete
+      - get
+      - list
+  - apiGroups:
+      - '*'
+    attributeRestrictions: null
+    resources:
+      - imagestreams
+    verbs:
+      - delete
+      - get
