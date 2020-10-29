@@ -76,7 +76,7 @@ def call() {
             context.codebaseType = context.database.getCodebaseType(context.projectName, context.codebase)
         }
         stage("Check that codebase branch is not in use") {
-            ArrayList cdPipelines
+            ArrayList cdPipelines = []
             String errorMessage
             switch (context.codebaseType) {
                 case "autotests":
@@ -87,8 +87,6 @@ def call() {
                     cdPipelines = context.database.getApplicationBranchCdPipelines(context.projectName, context.codebase, context.codebaseBranch, params.RESOURCES_VERSION_2)
                     errorMessage = "Application \"${context.codebase}\" branch \"${context.codebaseBranch}\" cannot be removed while CD pipelines use it."
                     break
-                case "library":
-                    cdPipeline = []
                 default:
                     break
             }
