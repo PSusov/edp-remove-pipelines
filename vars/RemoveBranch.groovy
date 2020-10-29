@@ -87,6 +87,8 @@ def call() {
                     cdPipelines = context.database.getApplicationBranchCdPipelines(context.projectName, context.codebase, context.codebaseBranch, params.RESOURCES_VERSION_2)
                     errorMessage = "Application \"${context.codebase}\" branch \"${context.codebaseBranch}\" cannot be removed while CD pipelines use it."
                     break
+                case "library":
+                    cdPipeline = []
                 default:
                     break
             }
