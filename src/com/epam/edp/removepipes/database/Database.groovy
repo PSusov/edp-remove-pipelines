@@ -308,12 +308,12 @@ class Database {
         String command
         if (isV2) {
             command = """
-            select cp.name 
-            from codebase c
-                left join codebase_docker_stream cds on c.id = cds.codebase_id
+            select cp.name from codebase_branch cb
+                left join codebase_docker_stream cds on cds.codebase_branch_id = cb.id
+                left join codebase c on cb.codebase_id = c.id
                 left join cd_pipeline_docker_stream cpds on cds.id = cpds.codebase_docker_stream_id
                 right join cd_pipeline cp on cpds.cd_pipeline_id = cp.id
-            where c.name = '${codebaseName}';            
+                where c.name = '${codebaseName}';
             """
         } else {
             command = """
