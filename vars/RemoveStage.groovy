@@ -76,7 +76,7 @@ def call() {
             new JenkinsItem("${context.cdPipeline}-cd-pipeline/${context.cdStage}", this).remove()
         }
         stage("Remove image streams") {
-            context.database.getCdPipelineApplications(context.projectName, context.cdPipeline, params.RESOURCES_VERSION_2).each { application ->
+            context.database.getCdPipelineApplications(context.projectName, "${context.cdPipeline}-${context.cdStage}", params.RESOURCES_VERSION_2).each { application ->
                 new OpenshiftResource("imagestream", "${context.cdPipeline}-${context.cdStage}-${application}-verified",
                         this).remove()
             }

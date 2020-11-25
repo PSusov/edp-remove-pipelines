@@ -123,11 +123,10 @@ class Database {
         String command
         if (isV2) {
             command = """
-            select c.name from cd_pipeline cp
-            left join cd_pipeline_docker_stream cpds on cp.id = cpds.cd_pipeline_id
-            left join codebase_docker_stream cds on cpds.codebase_docker_stream_id = cds.id
-            left join codebase c on cds.codebase_id = c.id
-            where cp.name = '${pipelineName}';
+            select c.name from codebase_branch cb
+            left join codebase_docker_stream cds on cb.id = cds.codebase_branch_id
+            left join codebase c on cb.codebase_id = c.id
+            where cds.oc_image_stream_name ~ '${pipelineName}';
             """
         } else {
             command = """
