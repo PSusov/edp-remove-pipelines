@@ -61,6 +61,7 @@ def call() {
             context.codebaseType = context.database.getCodebaseType(context.projectName, context.codebase)
         }
         stage("Check that codebase is not in use") {
+
             ArrayList cdPipelines
             String errorMessage
             switch (context.codebaseType) {
@@ -72,6 +73,8 @@ def call() {
                     cdPipelines = context.database.getApplicationCdPipelines(context.projectName, context.codebase, params.RESOURCES_VERSION_2)
                     errorMessage = "Application \"${context.codebase}\" cannot be removed while CD pipelines use it."
                     break
+                case "library":
+                    cdPipelines = []
                 default:
                     break
             }
