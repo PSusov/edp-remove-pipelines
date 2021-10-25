@@ -66,7 +66,7 @@ def call() {
                 if (context.codebase == "No_deletion")
                     error "Deletion aborted"
 
-                codebaseBranchChoices.add(choice(choices: "${context.database.getCodebaseBranches(context.projectName, context.codebase).plus('No_deletion').join('\n').minus('master\n')}", name: "CODEBASE_BRANCH"))
+                codebaseBranchChoices.add(choice(choices: "${context.database.getCodebaseBranches(context.projectName, context.codebase).plus('No_deletion').sort().join('\n').minus('master\n')}", name: "CODEBASE_BRANCH"))
                 context.codebaseBranch = input id: 'codebaseBranch', message: 'Codebase branch you want to remove.',
                         parameters: codebaseBranchChoices
 
